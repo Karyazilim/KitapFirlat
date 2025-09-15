@@ -9,6 +9,7 @@ from src.ui.main_menu import MainMenu
 from src.ui.settings_menu import SettingsMenu
 from src.game.game_screen import GameScreen
 from src.game.game_over_screen import GameOverScreen
+from src.game.sound_manager import SoundManager
 
 class GameState(Enum):
     MENU = "menu"
@@ -48,6 +49,13 @@ class Game:
         self.game_screen = GameScreen(self.screen, self.WINDOW_WIDTH, self.WINDOW_HEIGHT)
         self.game_over_screen = GameOverScreen(self.screen, self.WINDOW_WIDTH, self.WINDOW_HEIGHT)
         
+        # Initialize sound system
+        self.sound_manager = SoundManager()
+        self.sound_manager.set_enabled(self.settings['sound_enabled'])
+        
+        # Connect sound system to game screen
+        self.game_screen.set_sound_manager(self.sound_manager)
+        
     def handle_events(self):
         """Handle pygame events and delegate to current screen"""
         events = pygame.event.get()
@@ -74,6 +82,7 @@ class Game:
                     # Update game settings
                     self.settings.update(self.settings_menu.get_settings())
                     self.game_screen.update_settings(self.settings)
+                    self.sound_manager.set_enabled(self.settings['sound_enabled'])
                     
             elif self.state == GameState.GAME:
                 result = self.game_screen.handle_event(event)

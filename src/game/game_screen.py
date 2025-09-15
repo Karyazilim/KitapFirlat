@@ -11,6 +11,7 @@ class GameScreen:
         self.screen = screen
         self.width = width
         self.height = height
+        self.sound_manager = None  # Will be set by main game
         
         # Colors
         self.bg_color = (220, 240, 255)  # Light blue sky
@@ -59,6 +60,10 @@ class GameScreen:
         self.target_spawner.spawn_timer = 0
         self.update_ui()
     
+    def set_sound_manager(self, sound_manager):
+        """Set the sound manager reference"""
+        self.sound_manager = sound_manager
+    
     def update_settings(self, settings):
         """Update game settings"""
         self.settings = settings
@@ -100,6 +105,10 @@ class GameScreen:
             vx, vy, projectile_type
         )
         self.projectiles.append(projectile)
+        
+        # Play throw sound
+        if self.sound_manager:
+            self.sound_manager.play('throw')
     
     def update(self):
         """Update game state"""
@@ -137,6 +146,10 @@ class GameScreen:
             self.score += final_score
             self.streak += 1
             self.max_streak = max(self.max_streak, self.streak)
+            
+            # Play hit sound
+            if self.sound_manager:
+                self.sound_manager.play('hit')
         
         # Reset streak if no hits recently (could be improved with a timer)
         if not hits and len(self.projectiles) == 0:

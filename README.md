@@ -114,7 +114,21 @@ KitapFirlat/
 
 ## Screenshots
 
-*[Screenshots will be added when the game is running]*
+### Main Menu
+![Main Menu](screenshots/main_menu.png)
+*Main menu with bouncing title, navigation buttons, and bottom navigation bar*
+
+### Settings Screen
+![Settings](screenshots/settings_menu.png)
+*Difficulty and sound settings with clean interface*
+
+### Gameplay
+![Game Screen](screenshots/game_screen.png)
+*Active gameplay with moving targets, projectiles, and HUD elements*
+
+### Game Over
+![Game Over](screenshots/game_over_screen.png)
+*End game screen with final score and options to continue*
 
 ## Development
 
